@@ -1,8 +1,9 @@
 ﻿Hello
 How are you
-What time is it
+What is the Time
 Wake up
 Stop talking
 Stop Listening
 Show commands
 Hide commands
+Open Command Prompt

@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using System.Speech.Recognition;
 using System.Speech.Synthesis;
 using System.IO;
+using System.Diagnostics;
 
 namespace WindowsFormsApp1
 {
@@ -45,9 +46,14 @@ namespace WindowsFormsApp1
             {
                 Sara.SpeakAsync("I am fine");
             }
-            if (speech == "What time is it")
+            if (speech == "What is the Time")
             {
-                Sara.SpeakAsync(DateTime.Now.ToString("T"));
+                Sara.SpeakAsync(DateTime.Now.ToString("h mm ss t"));
+            }
+            if(speech =="Open Command Prompt")
+            {
+                Sara.SpeakAsync("Opening command prompt");
+                Process.Start("cmd");
             }
             if(speech == "Stop talking")
             {
