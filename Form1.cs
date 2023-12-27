@@ -10,10 +10,10 @@ namespace WindowsFormsApp1
     public partial class Form1 : Form
     {
 
-        SpeechRecognitionEngine _recognizer = new SpeechRecognitionEngine();
-        SpeechSynthesizer Sara = new SpeechSynthesizer();
-        SpeechRecognitionEngine startListening = new SpeechRecognitionEngine();
-        Random rnd = new Random();
+        readonly SpeechRecognitionEngine _recognizer = new SpeechRecognitionEngine();
+        readonly SpeechSynthesizer Sara = new SpeechSynthesizer();
+        readonly SpeechRecognitionEngine startListening = new SpeechRecognitionEngine(); // This is used when we say stop or start listening
+        readonly Random rnd = new Random();
         int RecTimeOut = 0;
 
         public Form1()
@@ -26,12 +26,12 @@ namespace WindowsFormsApp1
             _recognizer.SetInputToDefaultAudioDevice(); //Use Headphone for clear voice 
             _recognizer.LoadGrammarAsync(new Grammar(new GrammarBuilder(new Choices(File.ReadAllLines(@"DefaultCommands.txt")))));
             _recognizer.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(Default_SpeechRecognized);
-            _recognizer.SpeechDetected += new EventHandler<SpeechDetectedEventArgs>(_recognizer_SpeechRecognized);
+            _recognizer.SpeechDetected += new EventHandler<SpeechDetectedEventArgs>(Recognizer_SpeechRecognized);
             _recognizer.RecognizeAsync(RecognizeMode.Multiple);
 
             startListening.SetInputToDefaultAudioDevice();
             startListening.LoadGrammarAsync(new Grammar(new GrammarBuilder(new Choices(File.ReadAllLines(@"DefaultCommands.txt")))));
-            startListening.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(startListening_SpeechRecognized);
+            startListening.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(StartListening_SpeechRecognized);
         }
         private void Default_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
@@ -90,12 +90,12 @@ namespace WindowsFormsApp1
                 LstCommands.Visible = false;
             }
         }
-        private void _recognizer_SpeechRecognized(object sender, SpeechDetectedEventArgs e)
+        private void Recognizer_SpeechRecognized(object sender, SpeechDetectedEventArgs e)
         {
             RecTimeOut = 0;
 
         }
-        private void startListening_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
+        private void StartListening_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
             string speech = e.Result.Text;
 
@@ -119,12 +119,10 @@ namespace WindowsFormsApp1
                 RecTimeOut = 0;
             }
         }
-
         private void pictureBox1_Click(object sender, EventArgs e)
         {
 
         }
-
         private void LstCommands_SelectedIndexChanged(object sender, EventArgs e)
         {
 

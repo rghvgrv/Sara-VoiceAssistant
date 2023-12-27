@@ -78,6 +78,7 @@
             this.LstCommands.ItemHeight = 24;
             this.LstCommands.Location = new System.Drawing.Point(445, 3);
             this.LstCommands.Name = "LstCommands";
+            this.LstCommands.SelectionMode = System.Windows.Forms.SelectionMode.None;
             this.LstCommands.Size = new System.Drawing.Size(271, 432);
             this.LstCommands.TabIndex = 1;
             this.LstCommands.Visible = false;
